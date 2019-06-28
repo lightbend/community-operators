@@ -100,7 +100,7 @@ spec:
           - description: 'Information on the cluster'
             displayName: 'Cluster'
             path: cluster
-          - description: 'The last time the status changed"
+          - description: 'The last time the status changed'
             displayName: 'Last Update'
             path: lastUpdate
           - description: 'The host of the (host,port) pair used to obtain the cluster status'
