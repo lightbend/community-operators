@@ -8,7 +8,7 @@ metadata:
     categories: Application Runtime
     certified: 'false'
     containerImage: 'lightbend-docker-registry.bintray.io/lightbend/akkacluster-operator:latest'
-    createdAt: 2019-05-30T00:00:00Z
+    createdAt: '2019-06-28T15:23:00Z'
     description: Run Akka Cluster applications on OpenShift.
     repository: https://github.com/lightbend/akka-cluster-operator
     support: 'Lightbend, Inc.'
@@ -91,22 +91,24 @@ spec:
             version: v1
         specDescriptors:
           - description: 'The desired number of pod instances in the Akka Cluster'
-          - displayName: 'Replica Count'
-          - path: replicas
-          - path: template
+            displayName: 'Replica Count'
+            path: replicas
+          - description: 'The template used to form the cluster'
+            displayName: 'Template'
+            path: template
         statusDescriptors:
-          - description: 'The status of the named Akka Cluster'
-          - displayName: 'Akka Cluster Status'
-          - path: cluster
-          - path: lastUpdate
-          - path: managementHost
-          - path: managementPort
-    required:
-      - name: ''
-        displayName: ''
-        kind: ''
-        version: ''
-        description: ''
+          - description: 'Information on the cluster'
+            displayName: 'Cluster'
+            path: cluster
+          - description: 'The last time the status changed"
+            displayName: 'Last Update'
+            path: lastUpdate
+          - description: 'The host of the (host,port) pair used to obtain the cluster status'
+            displayName: 'Management Host'
+            path: managementHost
+          - description: 'The port of the (host,port) pair used to obtain the cluster status'
+            displayName: 'Management Port'
+            path: managementPort
   description: |
     The Akka Cluster Operator allows you to manage applications designed for
     [Akka Cluster](https://doc.akka.io/docs/akka/current/common/cluster.html).
@@ -151,7 +153,7 @@ spec:
                       - name: WATCH_NAMESPACE
                         valueFrom:
                           fieldRef:
-                            fieldPath: metadata.namespace
+                            fieldPath: metadata.annotations['olm.targetNamespaces']
                       - name: POD_NAME
                         valueFrom:
                           fieldRef:
@@ -163,8 +165,8 @@ spec:
                     name: akka-cluster-operator
                     resources: {}
                 serviceAccountName: akka-cluster-operator
-      clusterPermissions: null
-      permissions:
+      permissions: []
+      clusterPermissions:
         - rules:
             - apiGroups:
                 - ""
